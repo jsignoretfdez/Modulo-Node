@@ -7,12 +7,22 @@ let escribeTras2Segundos = function (texto, callback) {
         console.log(texto);
         callback() // Ejecuta el callback
     }, 2000)
-
 }
 
-escribeTras2Segundos('texto1', () =>{
-    escribeTras2Segundos('texto2', () =>{
-        console.log('termino')
-    });
+let serie = function (n, fnAEjecutar, callbackFinalizacion) {
+    if(n == 0){
+        callbackFinalizacion();
+        return;
+    }
+    n -= 1;
+    fnAEjecutar('texto' + n, () => {
+        serie(n, fnAEjecutar, callbackFinalizacion);
+    })
+}
+
+
+serie(5, escribeTras2Segundos, () => {
+    console.log('Terminado');
 });
+
 
